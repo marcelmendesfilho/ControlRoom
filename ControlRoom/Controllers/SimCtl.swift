@@ -45,9 +45,12 @@ enum SimCtl: CommandLineCommandExecuter {
         execute(.boot(simulator: simulator))
     }
 
-    static func shutdown(_ simulator: String) {
-        execute(.shutdown(.devices([simulator])))
+    static func shutdown(_ simulator: String, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
+        execute(.shutdown(.devices([simulator]))) { result in
+            completion?(result)
+        }
     }
+    
     static func setContentSize(_ simulator: String, contentSize: UI.ContentSizes) {
         execute(.ui(deviceId: simulator, option: .contentSize(contentSize)))
     }

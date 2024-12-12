@@ -44,17 +44,19 @@ enum SnapshotCtl: CommandLineCommandExecuter {
     }
     
     static func createSnapshot(deviceId: String, snapshotName: String) {
-        execute(.createSnapshotTree(deviceId: deviceId, snapshotName: snapshotName)) { _ in
-   
-            execute(.createSnapshot(deviceId: deviceId, snapshotName: snapshotName)) { result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    print("Error creating snapshot: \(error)")
+        SimCtl.shutdown(deviceId) { _ in
+            
+            execute(.createSnapshotTree(deviceId: deviceId, snapshotName: snapshotName)) { _ in
+       
+                execute(.createSnapshot(deviceId: deviceId, snapshotName: snapshotName)) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        print("Error creating snapshot: \(error)")
+                    }
                 }
             }
-            
         }
     }
     
