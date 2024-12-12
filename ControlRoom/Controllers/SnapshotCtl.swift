@@ -11,10 +11,24 @@ import Foundation
 enum SnapshotCtl: CommandLineCommandExecuter {
     typealias Error = CommandLineError
     
-    static var launchPath = "./"
+    static var launchPath = ""
+    static var devicesPath = ""
     
-    static func createSnapshotsFolder() {
-        execute(.createSnapshotsFolder())
+    static func configureDevicesPath(dataPath: String?) {
+        guard let dataPath else {
+            print("Missing dataPath. Snapshots won't be created.")
+            return
+        }
+        
+        var folders: [String] = []
+        
+        dataPath.split(separator: "/").forEach {
+            folders.append("\($0)")
+        }
+        
+        if let devicesIndex: Int = folders.firstIndex(of: "Devices") {
+            devicesPath = "/" + folders.prefix(devicesIndex + 1).joined(separator: "/")
+        }
     }
     
     static func getTimestamp(deviceId: String) {
@@ -30,11 +44,20 @@ enum SnapshotCtl: CommandLineCommandExecuter {
     }
     
     static func createSnapshot(deviceId: String, snapshotName: String) {
-        execute(.createSnapshotFolder(deviceId: deviceId, snapshotName: snapshotName)) { _ in
-            execute(.createSnapshot(deviceId: deviceId, snapshotName: snapshotName))
+        execute(.createSnapshotTree(deviceId: deviceId, snapshotName: snapshotName)) { _ in
+   
+            execute(.createSnapshot(deviceId: deviceId, snapshotName: snapshotName)) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    print("Error creating snapshot: \(error)")
+                }
+            }
+            
         }
     }
-
+    
     static func deleteSnapshot(deviceId: String, snapshotName: String) {
         execute(.deleteSnapshot(deviceId: deviceId, snapshotName: snapshotName))
     }
@@ -48,5 +71,5 @@ enum SnapshotCtl: CommandLineCommandExecuter {
             execute(.restoreSnapshot(deviceId: deviceId, snapshotName: snapshotName))
         }
     }
-
+        
 }

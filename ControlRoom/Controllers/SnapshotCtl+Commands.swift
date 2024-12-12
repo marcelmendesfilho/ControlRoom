@@ -11,52 +11,52 @@ import Foundation
 extension SnapshotCtl {
     
     struct Command: CommandLineCommand {
+        static let snapshotsFolder: String = ".snapshots"
+
+        var command: String?
         let arguments: [String]
         let environmentOverrides: [String: String]?
         
         private init(_ command: String, arguments: [String], environmentOverrides: [String: String]? = nil) {
-            self.arguments = [command] + arguments
+            self.command = command
+            self.arguments = arguments
             self.environmentOverrides = environmentOverrides
         }
         
-        static func createSnapshotsFolder() -> Command {
-            Command("mkdir", arguments: ["./snapshots"])
-        }
-        
         static func getTimestamp(deviceId: String) -> Command {
-            Command("GetFileInfo", arguments: ["-d", "./\(deviceId)"])
+            Command("/usr/bin/GetFileInfo", arguments: ["-d", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
         }
         
         static func getSnapshots(deviceId: String) -> Command {
-            Command("printf", arguments: ["\"%s\n\"", "./*/*/"])
+            Command("/usr/bin/printf", arguments: ["\"%s\n\"", "\(devicesPath)/\(snapshotsFolder)/*/*/"])
         }
         
         static func getSnapshotsSizes(deviceId: String) -> Command {
-            Command("du", arguments: ["-hd", "./\(deviceId)"])
+            Command("/usr/bin/du", arguments: ["-hd", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
         }
         
-        static func createSnapshotFolder(deviceId: String, snapshotName: String) -> Command {
-            Command("mkdir", arguments:["\(deviceId)/\(snapshotName)"])
+        static func createSnapshotTree(deviceId: String, snapshotName: String) -> Command {
+            Command("/bin/mkdir", arguments:["-p", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)"])
         }
         
         static func createSnapshot(deviceId: String, snapshotName: String) -> Command {
-            Command("cp", arguments: ["../\(deviceId)", "\(deviceId)/\(snapshotName)/"])
+            Command("/usr/bin/rsync", arguments: ["-a", "\(devicesPath)/\(deviceId)", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)/"])
         }
 
         static func deleteSnapshot(deviceId: String, snapshotName: String) -> Command {
-            Command("rm", arguments: ["-rF", "./\(deviceId)/\(snapshotName)/"])
+            Command("/bin/rm", arguments: ["-rF", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)/"])
         }
         
         static func deleteAllSnapshots(deviceId: String) -> Command {
-            Command("rm", arguments: ["-rF", "./\(deviceId)"])
+            Command("/bin/rm", arguments: ["-rF", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
         }
         
         static func deleteSimulator(deviceId: String) -> Command {
-            Command("rm", arguments: ["-rF", "../\(deviceId)"])
+            Command("/bin/rm", arguments: ["-rF", "\(devicesPath)/\(deviceId)"])
         }
 
         static func restoreSnapshot(deviceId: String, snapshotName: String) -> Command {
-            Command("cp", arguments: ["\(deviceId)/\(snapshotName)", "../"])
+            Command("/bin/cp", arguments: ["\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)", "\(devicesPath)/"])
         }
 
     }

@@ -131,6 +131,10 @@ class SimulatorsController: ObservableObject {
                                     dataPath: device.dataPath ?? "")
                 final.append(sim)
             }
+            
+            if let device = devices.first {
+                SnapshotCtl.configureDevicesPath(dataPath: device.dataPath)
+            }
         }
 
         objectWillChange.send()
