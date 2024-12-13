@@ -28,7 +28,7 @@ extension SnapshotCtl {
         }
         
         static func getSnapshots(deviceId: String) -> Command {
-            Command("/usr/bin/printf", arguments: ["\"%s\n\"", "\(devicesPath)/\(snapshotsFolder)/*/*/"])
+            Command("/bin/ls", arguments: ["\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
         }
         
         static func getSnapshotsSizes(deviceId: String) -> Command {

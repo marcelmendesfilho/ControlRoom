@@ -13,6 +13,7 @@
 		3C13FF9B2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C13FF9A2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift */; };
 		3CF07C312BEF48D200770363 /* TogglesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF07C302BEF48D200770363 /* TogglesFormView.swift */; };
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
+		48369F9D2D0BCE7B00B74A60 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48369F9C2D0BCE7B00B74A60 /* Snapshot.swift */; };
 		48540AB12D0B4DFB004F04E4 /* SnapshotCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */; };
 		48540AB32D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
@@ -108,6 +109,7 @@
 		3C13FF9A2BEF4D5100060A5C /* PathToTerminalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathToTerminalTextFieldView.swift; sourceTree = "<group>"; };
 		3CF07C302BEF48D200770363 /* TogglesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglesFormView.swift; sourceTree = "<group>"; };
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
+		48369F9C2D0BCE7B00B74A60 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCtl.swift; sourceTree = "<group>"; };
 		48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapshotCtl+Commands.swift"; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 		555A146323F762AD00313BC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				48369F9C2D0BCE7B00B74A60 /* Snapshot.swift */,
 				48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */,
 				48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */,
 				ACDF076523F7D1C300597B3B /* Application.swift */,
@@ -645,6 +648,7 @@
 				E04B47322B07B66F00DAE338 /* LocationsController.swift in Sources */,
 				54C2092B27DBDE2200E47016 /* DocumentPickerConfig.swift in Sources */,
 				ACCD798E240AE82C0004ECE5 /* PushNotification.swift in Sources */,
+				48369F9D2D0BCE7B00B74A60 /* Snapshot.swift in Sources */,
 				517928C225C47392000F6F3A /* AVAssetToGIF.swift in Sources */,
 				C9C203E62B1788C90081E1EF /* LocalSearchResult.swift in Sources */,
 				48540AB32D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift in Sources */,

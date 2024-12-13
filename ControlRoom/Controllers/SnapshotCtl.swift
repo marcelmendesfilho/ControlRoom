@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 enum SnapshotCtl: CommandLineCommandExecuter {
     typealias Error = CommandLineError
@@ -35,8 +36,8 @@ enum SnapshotCtl: CommandLineCommandExecuter {
         execute(.getTimestamp(deviceId: deviceId))
     }
     
-    static func getSnapshots(deviceId: String) {
-        execute(.getSnapshots(deviceId: deviceId))
+    static func getSnapshots(deviceId: String) -> AnyPublisher<Data, SnapshotCtl.Error> {
+        executeCommand(.getSnapshots(deviceId: deviceId))
     }
     
     static func getSnapshotsSizes(deviceId: String) {

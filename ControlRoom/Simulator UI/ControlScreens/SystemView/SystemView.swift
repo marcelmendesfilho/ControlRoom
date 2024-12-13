@@ -12,6 +12,8 @@ import SwiftUI
 /// Controls system-wide settings such as time and appearance.
 struct SystemView: View {
     let simulator: Simulator
+	
+	@ObservedObject var controller: SimulatorsController
 
     @EnvironmentObject var preferences: Preferences
     @EnvironmentObject var deepLinks: DeepLinksController
@@ -135,6 +137,7 @@ struct SystemView: View {
                         }
                     }
                 }
+								
             }
             .padding()
         }
@@ -230,8 +233,10 @@ struct SystemView: View {
 
 struct SystemView_Previews: PreviewProvider {
     static var previews: some View {
-        SystemView(simulator: .example)
-            .environmentObject(Preferences())
+		let preferences = Preferences()
+
+		SystemView(simulator: .example, controller: SimulatorsController(preferences: preferences))
+			.environmentObject(preferences)
     }
 }
 

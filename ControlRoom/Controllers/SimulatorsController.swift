@@ -35,6 +35,9 @@ class SimulatorsController: ObservableObject {
 
     /// An array of all the applications installed on the selected simulator.
     @Published var applications = [Application]()
+    
+    /// An array of all the snapshots of the selected simulator.
+    @Published var snapshots = [Snapshot]()
 
     /// An array of all simulators that were loaded from simctl.
     private var allSimulators = [Simulator]()
@@ -49,7 +52,10 @@ class SimulatorsController: ObservableObject {
     /// to delete several at a time.
     var selectedSimulatorIDs = Set<String>() {
         willSet { objectWillChange.send() }
-        didSet { loadApplications() }
+        didSet {
+            loadApplications()
+            loadSnapshots()
+        }
     }
 
     var selectedSimulators: [Simulator] {
@@ -204,4 +210,33 @@ class SimulatorsController: ObservableObject {
             .assign(to: \.applications, on: self)
             .store(in: &cancellables)
     }
+    
+    private func loadSnapshots() {
+        guard
+            let selectedDeviceUDID = selectedSimulatorIDs.first
+            else { return }
+        
+        SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
+            .map { self.decodeSnapshots(selectedDeviceUDID, $0) ?? [] }
+            .receive(on: DispatchQueue.main)
+            .assertNoFailure()
+            .assign(to: \.snapshots, on: self)
+            .store(in: &cancellables)
+    }
+    
+    private func decodeSnapshots(_ deviceId: String, _ snapshotData: Data) -> [Snapshot]? {
+        guard let snapshotString = String(data: snapshotData, encoding: .utf8) else { return nil }
+        
+        let snapshotsArray: [String.SubSequence] = snapshotString.split(separator: "\n")
+        
+        let snapshots: [Snapshot] = snapshotsArray.compactMap { snapshotElement in
+            if let snapshot: Snapshot = .init(deviceId: deviceId, name: "\(snapshotElement)") {
+                return snapshot
+            }
+            return nil
+        }
+        
+        return snapshots
+    }
+    
 }

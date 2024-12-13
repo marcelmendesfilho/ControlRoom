@@ -84,7 +84,7 @@ struct Simulator: Identifiable, Comparable {
 
     /// The device type of the simulator
     let deviceType: DeviceType?
-
+    
     /// The current state of the simulator
     private(set) var state: State
 
@@ -125,7 +125,7 @@ struct Simulator: Identifiable, Comparable {
     mutating func update(state: State) {
         self.state = state
     }
-
+    
     func open(_ filePath: FilePathKind) {
         NSWorkspace.shared.activateFileViewerSelecting([urlForFilePath(filePath)])
     }

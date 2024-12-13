@@ -21,7 +21,7 @@ struct ControlView: View {
 
     var body: some View {
         TabView {
-            SystemView(simulator: simulator)
+            SystemView(simulator: simulator, controller: controller)
             AppView(simulator: simulator, applications: applications)
             LocationView(controller: controller, simulator: simulator)
             StatusBarView(simulator: simulator)
