@@ -27,30 +27,6 @@ extension SnapshotCtl {
             Command("/bin/mkdir", arguments:["-p", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)"])
         }
         
-        static func createSnapshot(deviceId: String, snapshotName: String) -> Command {
-            Command("/usr/bin/rsync", arguments: ["-a", "\(devicesPath)/\(deviceId)", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)/"])
-        }
-
-        static func deleteSnapshot(deviceId: String, snapshotName: String) -> Command {
-            delete(path: "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)")
-        }
-        
-        static func deleteAllSnapshots(deviceId: String) -> Command {
-            delete(path: "\(devicesPath)/\(snapshotsFolder)/\(deviceId)")
-        }
-        
-        static func deleteSimulator(deviceId: String) -> Command {
-            delete(path: "\(devicesPath)/\(deviceId)")
-        }
-        
-        private static func delete(path: String) -> Command {
-            Command("/bin/rm", arguments: ["-fR", path])
-        }
-
-        static func renameSnapshot(deviceId: String, snapshotName: String, newSnapshotName: String) -> Command {
-            Command("/bin/mv", arguments: ["\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(newSnapshotName)"])
-        }
-
     }
     
 }

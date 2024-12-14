@@ -13,7 +13,12 @@ enum SnapshotCtl: CommandLineCommandExecuter {
     typealias Error = CommandLineError
     
     static var launchPath = ""
-    static var devicesPath = ""
+    static var snapshotsPath = ""
+    static var devicesPath = "" {
+        didSet {
+            snapshotsPath = devicesPath + "/.snapshots"
+        }
+    }
     
     static func configureDevicesPath(dataPath: String?) {
         guard let dataPath else {
@@ -58,40 +63,33 @@ enum SnapshotCtl: CommandLineCommandExecuter {
     
     static func createSnapshot(deviceId: String, snapshotName: String) {
         SimCtl.shutdown(deviceId) { _ in
-            
             execute(.createSnapshotTree(deviceId: deviceId, snapshotName: snapshotName)) { _ in
-       
-                execute(.createSnapshot(deviceId: deviceId, snapshotName: snapshotName)) { result in
-                    switch result {
-                    case .success:
-                        break
-                    case .failure(let error):
-                        print("Error creating snapshot: \(error)")
-                    }
-                }
+                try? FileManager.default.copyItem(atPath: devicesPath + "/" + deviceId, toPath: snapshotsPath + "/" + deviceId + "/" + snapshotName + "/" + deviceId)
             }
         }
     }
     
     static func renameSnapshot(deviceId: String, snapshotName: String, newSnapshotName: String) {
-        execute(.renameSnapshot(deviceId: deviceId, snapshotName: snapshotName, newSnapshotName: newSnapshotName))
+        let snapshotPath: String = snapshotsPath + "/" + deviceId
+        try? FileManager.default.moveItem(atPath: snapshotPath + "/" + snapshotName, toPath: snapshotPath + "/" + newSnapshotName)
     }
     
     static func deleteSnapshot(deviceId: String, snapshotName: String) {
-        execute(.deleteSnapshot(deviceId: deviceId, snapshotName: snapshotName))
+        let snapshotPath: String = snapshotsPath + "/" + deviceId
+        try? FileManager.default.removeItem(atPath: snapshotPath + "/" + snapshotName)
     }
     
     static func deleteAllSnapshots(deviceId: String) {
-        execute(.deleteAllSnapshots(deviceId: deviceId))
+        let snapshotPath: String = snapshotsPath + "/" + deviceId
+        try? FileManager.default.removeItem(atPath: snapshotPath)
     }
     
     static func restoreSnapshot(deviceId: String, snapshotName: String) {
-        let snapshotsPath: String = devicesPath + "/.snapshots/" + deviceId
+        let snapshotPath: String = snapshotsPath + "/" + deviceId
 
         SimCtl.shutdown(deviceId) { _ in
-            execute(.deleteSimulator(deviceId: deviceId)) { _ in
-                try? FileManager.default.copyItem(atPath: snapshotsPath + "/" + snapshotName + "/" + deviceId, toPath: devicesPath + "/" + deviceId)
-            }
+            try? FileManager.default.removeItem(atPath: devicesPath + "/" + deviceId)
+            try? FileManager.default.copyItem(atPath: snapshotPath + "/" + snapshotName + "/" + deviceId, toPath: devicesPath + "/" + deviceId)
         }
     }
     

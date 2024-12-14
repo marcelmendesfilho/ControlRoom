@@ -33,7 +33,7 @@ struct SnapshotsView: View {
 					Section {
 						LabeledContent("Snapshots:") {
 							VStack(alignment: .leading, spacing: 5) {
-								ForEach(controller.snapshots) { snapshot in
+                                ForEach(controller.snapshots.sorted(by: { $0.creationDate > $1.creationDate }), id: \.id) { snapshot in
                                     
                                     let folderSize = Measurement(value: Double(snapshot.size), unit: UnitInformationStorage.bytes)
                                                                         
