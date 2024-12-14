@@ -13,7 +13,7 @@ struct SnapshotsView: View {
 	let simulator: Simulator
 	@ObservedObject var controller: SimulatorsController
     
-    @State private var snapshotAction: Action?
+    @State private var snapshotAction: SnapshotAction?
     @State private var newName: String
     @State private var selectedSnapshotName: String
     
@@ -88,7 +88,7 @@ struct SnapshotsView: View {
         }
         .sheet(item: $snapshotAction) { action in
             switch action {
-            case .renameSnapshot:
+            case .rename:
                 SimulatorActionSheet(
                     icon: simulator.image,
                     message: action.sheetTitle,
@@ -100,15 +100,13 @@ struct SnapshotsView: View {
                         TextField("Name", text: $newName)
                     }
                 )
-            case .deleteSnapshot, .restoreSnapshot:
+            case .delete, .restore:
                 SimulatorActionSheet(
                     icon: simulator.image,
                     message: action.sheetTitle,
                     informativeText: action.sheetMessage,
                     confirmationTitle: action.saveActionTitle,
                     confirm: { performAction(action) })
-            default:
-                EmptyView()
             }
         }
 
@@ -117,25 +115,24 @@ struct SnapshotsView: View {
     private func rename(snapshot: String) {
         selectedSnapshotName = snapshot
         newName = snapshot
-        snapshotAction = .renameSnapshot
+        snapshotAction = .rename
     }
     
     private func delete(snapshot: String) {
         selectedSnapshotName = snapshot
-        snapshotAction = .deleteSnapshot
+        snapshotAction = .delete
     }
 
     private func restore(snapshot: String) {
         selectedSnapshotName = snapshot
-        snapshotAction = .restoreSnapshot
+        snapshotAction = .restore
     }
 
-    private func performAction(_ action: Action) {
+    private func performAction(_ action: SnapshotAction) {
         switch action {
-        case .deleteSnapshot: SnapshotCtl.deleteSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName)
-        case .renameSnapshot: SnapshotCtl.renameSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName, newSnapshotName: newName)
-        case .restoreSnapshot: SnapshotCtl.restoreSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName)
-        default: break
+        case .delete: SnapshotCtl.deleteSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName)
+        case .rename: SnapshotCtl.renameSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName, newSnapshotName: newName)
+        case .restore: SnapshotCtl.restoreSnapshot(deviceId: simulator.udid, snapshotName: selectedSnapshotName)
         }
     }
         

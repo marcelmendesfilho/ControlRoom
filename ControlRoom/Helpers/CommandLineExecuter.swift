@@ -61,8 +61,6 @@ extension CommandLineCommandExecuter {
     private static func execute(_ command: Command, completion: @escaping (Result<Data, CommandLineError>) -> Void) {
         let commandToExecute: String = command.command ?? launchPath
         
-        print("--->", #function, commandToExecute, command.arguments.joined(separator: " "))
-        
         DispatchQueue.global(qos: .userInitiated).async {
             if let data = Process.execute(commandToExecute, arguments: command.arguments, environmentOverrides: command.environmentOverrides) {
                 completion(.success(data))

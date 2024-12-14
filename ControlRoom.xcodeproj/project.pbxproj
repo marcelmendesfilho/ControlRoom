@@ -15,6 +15,7 @@
 		41C44ACD2616FCB50016B1E4 /* FFMPEGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */; };
 		48369F9D2D0BCE7B00B74A60 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48369F9C2D0BCE7B00B74A60 /* Snapshot.swift */; };
 		48369F9F2D0D8A9300B74A60 /* SnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48369F9E2D0D8A9300B74A60 /* SnapshotsView.swift */; };
+		4842FE542D0DFF0100DC6F82 /* SnapshotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4842FE532D0DFEFC00DC6F82 /* SnapshotAction.swift */; };
 		48540AB12D0B4DFB004F04E4 /* SnapshotCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */; };
 		48540AB32D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */; };
 		488E64102D0DBFAD0022930D /* URLFileAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E640F2D0DBFAD0022930D /* URLFileAttribute.swift */; };
@@ -113,6 +114,7 @@
 		41C44ACC2616FCB50016B1E4 /* FFMPEGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMPEGConverter.swift; sourceTree = "<group>"; };
 		48369F9C2D0BCE7B00B74A60 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		48369F9E2D0D8A9300B74A60 /* SnapshotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotsView.swift; sourceTree = "<group>"; };
+		4842FE532D0DFEFC00DC6F82 /* SnapshotAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAction.swift; sourceTree = "<group>"; };
 		48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCtl.swift; sourceTree = "<group>"; };
 		48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapshotCtl+Commands.swift"; sourceTree = "<group>"; };
 		488E640F2D0DBFAD0022930D /* URLFileAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFileAttribute.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		511BA5AB23F434B500E3E660 /* ControlScreens */ = {
 			isa = PBXGroup;
 			children = (
+				4842FE532D0DFEFC00DC6F82 /* SnapshotAction.swift */,
 				48369F9E2D0D8A9300B74A60 /* SnapshotsView.swift */,
 				51B0241B25C3103B0042394E /* AppView */,
 				51AB56E82A141055002B5A67 /* ColorsView.swift */,
@@ -670,6 +673,7 @@
 				51AB56EB2A141C57002B5A67 /* ColorHistoryController.swift in Sources */,
 				ACDF076823F7E91A00597B3B /* ApplicationType.swift in Sources */,
 				3C13FF952BEF499400060A5C /* NotificationsFormView.swift in Sources */,
+				4842FE542D0DFF0100DC6F82 /* SnapshotAction.swift in Sources */,
 				51AB56E92A141055002B5A67 /* ColorsView.swift in Sources */,
 				51B0242325C3106E0042394E /* AppSummaryView.swift in Sources */,
 				3C13FF992BEF4C9200060A5C /* ColorPickerView.swift in Sources */,
