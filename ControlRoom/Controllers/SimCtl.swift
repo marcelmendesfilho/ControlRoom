@@ -163,6 +163,10 @@ enum SimCtl: CommandLineCommandExecuter {
 
     static func delete(_ simulators: Set<String>) {
         execute(.delete(.devices(Array(simulators))))
+        
+        if let simulator = simulators.first {
+            SnapshotCtl.deleteAllSnapshots(deviceId: simulator)
+        }
     }
 
     static func uninstall(_ simulator: String, appID: String) {
