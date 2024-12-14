@@ -44,6 +44,7 @@ class SimulatorsController: ObservableObject {
 
     private(set) var deviceTypes = [DeviceType]()
     private(set) var runtimes = [Runtime]()
+    private var timer: Timer?
 
     @AppStorage("CRSidebar_FilterText") private var filterText = ""
 
@@ -219,7 +220,23 @@ class SimulatorsController: ObservableObject {
         DispatchQueue.main.async {
             self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
         }
+
+        timer?.invalidate()
+        
+        timer = .init(timeInterval: 5, repeats: true) { _ in
+            DispatchQueue.main.async {
+                self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
+            }
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let timer = self?.timer else { return }
+            
+            let runLoop = RunLoop.current
+            runLoop.add(timer, forMode: .default)
+            runLoop.run()
+        }
+
     }
-    
     
 }
