@@ -22,13 +22,18 @@ struct ControlView: View {
     var body: some View {
         TabView {
             SystemView(simulator: simulator, controller: controller)
-            AppView(simulator: simulator, applications: applications)
-            LocationView(controller: controller, simulator: simulator)
-            StatusBarView(simulator: simulator)
-            OverridesView(simulator: simulator)
-            ColorsView()
+                .disabled(simulator.state != .booted)
+            SnapshotsView(simulator: simulator, controller: controller)
+            Group {
+                AppView(simulator: simulator, applications: applications)
+                LocationView(controller: controller, simulator: simulator)
+                StatusBarView(simulator: simulator)
+                OverridesView(simulator: simulator)
+                ColorsView()
+            }
+            .disabled(simulator.state != .booted)
+
         }
-        .disabled(simulator.state != .booted)
         .navigationSubtitle("\(simulator.name) – \(simulator.runtime?.name ?? "Unknown OS")")
         .toolbar {
             Menu("Save \(captureController.imageFormatString)") {
