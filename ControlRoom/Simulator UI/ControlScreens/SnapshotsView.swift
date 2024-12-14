@@ -22,10 +22,23 @@ struct SnapshotsView: View {
 							VStack(alignment: .leading, spacing: 5) {
 								ForEach(controller.snapshots) { snapshot in
 									HStack {
-										Button("Restore", action: placeholder)
-										Button("Rename", action: placeholder)
-										Text(snapshot.name)
-										Button("Erase", action: placeholder)
+                                        Button {
+                                        } label: {
+                                            Label("Restore", systemImage: "arrow.counterclockwise")
+                                        }
+
+                                        Button {
+                                        } label: {
+                                            Label("Rename", systemImage: "pencil")
+                                        }
+
+                                        Text(snapshot.name)
+
+                                        Button {
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                        
                                         Spacer()
 									}
 								}
