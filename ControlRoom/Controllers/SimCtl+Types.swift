@@ -33,6 +33,15 @@ extension SimCtl {
             case .visionPro: return "Apple Vision Pro"
             }
         }
+        
+        var snapshotUnavailableIcon: String {
+            switch self {
+            case .iPad, .iPhone: return "iphone.slash"
+            case .watch: return "applewatch.slash"
+            case .tv: return "tv.slash"
+            case .visionPro: return "visionpro.slash"
+            }
+        }
     }
 
     struct DeviceTypeList: Decodable {

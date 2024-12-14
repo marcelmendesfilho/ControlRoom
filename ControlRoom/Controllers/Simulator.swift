@@ -59,6 +59,7 @@ struct Simulator: Identifiable, Comparable {
             case .shutdown: true
             }
         }
+        
     }
 
     /// The user-facing name for this simulator, e.g. iPhone 11 Pro Max.
@@ -114,6 +115,8 @@ struct Simulator: Identifiable, Comparable {
             typeIdentifier = .defaultWatch
         } else if name.contains("TV") {
             typeIdentifier = .defaultTV
+        } else if name.contains("Vision") {
+            typeIdentifier = .defaultVision
         } else {
             typeIdentifier = .defaultiPhone
         }
