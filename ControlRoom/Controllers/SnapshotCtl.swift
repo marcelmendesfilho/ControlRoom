@@ -31,17 +31,29 @@ enum SnapshotCtl: CommandLineCommandExecuter {
             devicesPath = "/" + folders.prefix(devicesIndex + 1).joined(separator: "/")
         }
     }
-    
-    static func getTimestamp(deviceId: String) {
-        execute(.getTimestamp(deviceId: deviceId))
-    }
-    
-    static func getSnapshots(deviceId: String) -> AnyPublisher<Data, SnapshotCtl.Error> {
-        executeCommand(.getSnapshots(deviceId: deviceId))
-    }
-    
-    static func getSnapshotsSizes(deviceId: String) {
-        execute(.getSnapshotsSizes(deviceId: deviceId))
+
+    static func getSnapshots(deviceId: String) -> [Snapshot] {
+        let snapshotsPath: String = devicesPath + "/.snapshots/" + deviceId
+        var snapshotIDs: [String] = []
+        var snapshots: [Snapshot] = []
+        
+        do {
+            snapshotIDs = try FileManager.default.contentsOfDirectory(atPath: snapshotsPath)
+        } catch { }
+        
+        snapshotIDs.forEach { snapshotID in
+            guard !snapshotID.hasPrefix(".") else { return }
+
+            let snapshotPath: String = snapshotsPath + "/" + snapshotID
+            let snapshotAttributes = getSnapshotAttributes(snapshotPath)
+
+            guard let creationDate = snapshotAttributes.creationDate,
+                  let snapshotFolderSize = snapshotAttributes.folderSize else { return }
+            let snapshot: Snapshot = .init(id: snapshotID, creationDate: creationDate, size: snapshotFolderSize)
+            snapshots.append(snapshot)
+        }
+        
+        return snapshots
     }
     
     static func createSnapshot(deviceId: String, snapshotName: String) {
@@ -73,6 +85,12 @@ enum SnapshotCtl: CommandLineCommandExecuter {
         execute(.deleteSimulator(deviceId: deviceId)) { _ in
             execute(.restoreSnapshot(deviceId: deviceId, snapshotName: snapshotName))
         }
+    }
+    
+    private static func getSnapshotAttributes(_ snapshotPath: String) -> URLFileAttribute {
+        let snapshotURL: URL = URL(fileURLWithPath: snapshotPath)
+        let snapshotAttributes = URLFileAttribute(url: snapshotURL)
+        return snapshotAttributes
     }
         
 }

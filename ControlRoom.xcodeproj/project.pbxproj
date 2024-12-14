@@ -17,6 +17,7 @@
 		48369F9F2D0D8A9300B74A60 /* SnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48369F9E2D0D8A9300B74A60 /* SnapshotsView.swift */; };
 		48540AB12D0B4DFB004F04E4 /* SnapshotCtl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */; };
 		48540AB32D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */; };
+		488E64102D0DBFAD0022930D /* URLFileAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488E640F2D0DBFAD0022930D /* URLFileAttribute.swift */; };
 		510871F225C317830009E39F /* SimulatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510871F125C317830009E39F /* SimulatorAction.swift */; };
 		511BA57D23F3FFEA00E3E660 /* ControlRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */; };
 		511BA57F23F3FFEA00E3E660 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511BA57E23F3FFEA00E3E660 /* MainView.swift */; };
@@ -114,6 +115,7 @@
 		48369F9E2D0D8A9300B74A60 /* SnapshotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotsView.swift; sourceTree = "<group>"; };
 		48540AB02D0B4DFB004F04E4 /* SnapshotCtl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCtl.swift; sourceTree = "<group>"; };
 		48540AB22D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapshotCtl+Commands.swift"; sourceTree = "<group>"; };
+		488E640F2D0DBFAD0022930D /* URLFileAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFileAttribute.swift; sourceTree = "<group>"; };
 		510871F125C317830009E39F /* SimulatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAction.swift; sourceTree = "<group>"; };
 		511BA57923F3FFEA00E3E660 /* Control Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		511BA57C23F3FFEA00E3E660 /* ControlRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlRoomApp.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		511BA5D123F4567C00E3E660 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				488E640F2D0DBFAD0022930D /* URLFileAttribute.swift */,
 				511BA5A123F41A5900E3E660 /* Binding-OnChange.swift */,
 				51203A502A09588A00CBE517 /* Capture.swift */,
 				55DF68BC23F8C76800E717D3 /* Collection.swift */,
@@ -656,6 +659,7 @@
 				C9C203E62B1788C90081E1EF /* LocalSearchResult.swift in Sources */,
 				48540AB32D0B4E0C004F04E4 /* SnapshotCtl+Commands.swift in Sources */,
 				55AF68B723F9D2E200C5D87A /* UIState.swift in Sources */,
+				488E64102D0DBFAD0022930D /* URLFileAttribute.swift in Sources */,
 				48369F9F2D0D8A9300B74A60 /* SnapshotsView.swift in Sources */,
 				511BA59223F4031F00E3E660 /* ControlView.swift in Sources */,
 				5534158223FE0539005C0A41 /* Contributors.swift in Sources */,

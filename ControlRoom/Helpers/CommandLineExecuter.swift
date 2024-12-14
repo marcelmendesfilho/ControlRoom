@@ -100,14 +100,6 @@ extension CommandLineCommandExecuter {
         return publisher
     }
     
-    static func executeCommand(_ command: Command) -> AnyPublisher<Data, CommandLineError> {
-        executeSubject(command)
-            .mapError { error -> CommandLineError in
-                return error
-            }
-            .eraseToAnyPublisher()
-    }
-    
     static func execute(_ command: Command, completion: ((Result<Data, CommandLineError>) -> Void)? = nil) {
         execute(command, completion: completion ?? { _ in })
     }

@@ -23,18 +23,6 @@ extension SnapshotCtl {
             self.environmentOverrides = environmentOverrides
         }
         
-        static func getTimestamp(deviceId: String) -> Command {
-            Command("/usr/bin/GetFileInfo", arguments: ["-d", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
-        }
-        
-        static func getSnapshots(deviceId: String) -> Command {
-            Command("/bin/ls", arguments: ["\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
-        }
-        
-        static func getSnapshotsSizes(deviceId: String) -> Command {
-            Command("/usr/bin/du", arguments: ["-hd", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)"])
-        }
-        
         static func createSnapshotTree(deviceId: String, snapshotName: String) -> Command {
             Command("/bin/mkdir", arguments:["-p", "\(devicesPath)/\(snapshotsFolder)/\(deviceId)/\(snapshotName)"])
         }

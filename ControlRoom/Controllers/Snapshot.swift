@@ -9,18 +9,16 @@ import Foundation
 
 struct Snapshot: Equatable, Hashable, Identifiable {
     let id: String
-    let name: String
-    let creationDate: Date?
-    let size: Int?
+    let creationDate: Date
+    let size: Int
     
     static func == (lhs: Snapshot, rhs: Snapshot) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
     }
     
-    init?(deviceId: String, name: String) {
-        self.id = deviceId
-        self.name = name
-        self.creationDate = nil
-        self.size = nil
+    init(id: String, creationDate: Date, size: Int) {
+        self.id = id
+        self.creationDate = creationDate
+        self.size = size
     }
 }

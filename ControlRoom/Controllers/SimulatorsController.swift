@@ -216,27 +216,10 @@ class SimulatorsController: ObservableObject {
             let selectedDeviceUDID = selectedSimulatorIDs.first
             else { return }
         
-        SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
-            .map { self.decodeSnapshots(selectedDeviceUDID, $0) ?? [] }
-            .receive(on: DispatchQueue.main)
-            .assertNoFailure()
-            .assign(to: \.snapshots, on: self)
-            .store(in: &cancellables)
+        DispatchQueue.main.async {
+            self.snapshots = SnapshotCtl.getSnapshots(deviceId: selectedDeviceUDID)
+        }
     }
     
-    private func decodeSnapshots(_ deviceId: String, _ snapshotData: Data) -> [Snapshot]? {
-        guard let snapshotString = String(data: snapshotData, encoding: .utf8) else { return nil }
-        
-        let snapshotsArray: [String.SubSequence] = snapshotString.split(separator: "\n")
-        
-        let snapshots: [Snapshot] = snapshotsArray.compactMap { snapshotElement in
-            if let snapshot: Snapshot = .init(deviceId: deviceId, name: "\(snapshotElement)") {
-                return snapshot
-            }
-            return nil
-        }
-        
-        return snapshots
-    }
     
 }

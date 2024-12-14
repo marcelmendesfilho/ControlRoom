@@ -12,6 +12,8 @@ import SwiftUI
 struct SnapshotsView: View {
 	let simulator: Simulator
 	@ObservedObject var controller: SimulatorsController
+    
+    private let formatter = MeasurementFormatter()
 
 	var body: some View {
 		ScrollView {
@@ -21,6 +23,9 @@ struct SnapshotsView: View {
 						LabeledContent("Snapshots:") {
 							VStack(alignment: .leading, spacing: 5) {
 								ForEach(controller.snapshots) { snapshot in
+                                    
+                                    let folderSize = Measurement(value: Double(snapshot.size), unit: UnitInformationStorage.bytes)
+                                                                        
 									HStack {
                                         Button {
                                         } label: {
@@ -32,7 +37,13 @@ struct SnapshotsView: View {
                                             Label("Rename", systemImage: "pencil")
                                         }
 
-                                        Text(snapshot.name)
+                                        Text(snapshot.id)
+                                        
+                                        Group {
+                                            Text(snapshot.creationDate.formatted(date: .numeric, time: .standard))
+                                            Text(formatter.string(from: folderSize.converted(to: .gigabytes)))
+                                        }
+                                        .font(.callout)
 
                                         Button {
                                         } label: {
