@@ -51,12 +51,14 @@ struct SnapshotsView: View {
                                         }
 
                                         Text(snapshot.id)
+                                            .fontWeight(.semibold)
                                         
                                         Group {
                                             Text(snapshot.creationDate.formatted(date: .numeric, time: .standard))
                                             Text(formatter.string(from: folderSize.converted(to: .gigabytes)))
                                         }
                                         .font(.callout)
+                                        .fontWeight(.thin)
 
                                         Button {
                                             delete(snapshot: snapshot.id)
