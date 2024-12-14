@@ -73,6 +73,10 @@ enum SnapshotCtl: CommandLineCommandExecuter {
         }
     }
     
+    static func renameSnapshot(deviceId: String, snapshotName: String, newSnapshotName: String) {
+        execute(.renameSnapshot(deviceId: deviceId, snapshotName: snapshotName, newSnapshotName: newSnapshotName))
+    }
+    
     static func deleteSnapshot(deviceId: String, snapshotName: String) {
         execute(.deleteSnapshot(deviceId: deviceId, snapshotName: snapshotName))
     }
@@ -82,8 +86,12 @@ enum SnapshotCtl: CommandLineCommandExecuter {
     }
     
     static func restoreSnapshot(deviceId: String, snapshotName: String) {
-        execute(.deleteSimulator(deviceId: deviceId)) { _ in
-            execute(.restoreSnapshot(deviceId: deviceId, snapshotName: snapshotName))
+        let snapshotsPath: String = devicesPath + "/.snapshots/" + deviceId
+
+        SimCtl.shutdown(deviceId) { _ in
+            execute(.deleteSimulator(deviceId: deviceId)) { _ in
+                try? FileManager.default.copyItem(atPath: snapshotsPath + "/" + snapshotName + "/" + deviceId, toPath: devicesPath + "/" + deviceId)
+            }
         }
     }
     

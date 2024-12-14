@@ -74,7 +74,7 @@ struct SimulatorSidebarView: View {
         )
         .sheet(item: $action) { action in
             switch action {
-            case .power, .openRoot, .createSnapshot:
+            case .power, .openRoot, .createSnapshot, .deleteSnapshot, .renameSnapshot, .restoreSnapshot:
                 EmptyView()
             case .rename, .clone:
                 SimulatorActionSheet(
@@ -106,6 +106,7 @@ struct SimulatorSidebarView: View {
         case .rename: SimCtl.rename(simulator.udid, name: newName)
         case .clone: SimCtl.clone(simulator.udid, name: newName)
         case .createSnapshot: SnapshotCtl.createSnapshot(deviceId: simulator.udid, snapshotName: UUID().uuidString)
+        case .deleteSnapshot, .renameSnapshot, .restoreSnapshot: break
         case .delete: SimCtl.delete([simulator.udid])
         case .power:
             if simulator.state == .booted {
