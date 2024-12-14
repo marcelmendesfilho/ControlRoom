@@ -8,7 +8,7 @@
 import Foundation
 
 struct Snapshot: Equatable, Hashable, Identifiable {
-    let id: UUID
+    let id: String
     let name: String
     let creationDate: Date?
     let size: Int?
@@ -18,7 +18,7 @@ struct Snapshot: Equatable, Hashable, Identifiable {
     }
     
     init?(deviceId: String, name: String) {
-        self.id = UUID()
+        self.id = deviceId
         self.name = name
         self.creationDate = nil
         self.size = nil
