@@ -13,6 +13,7 @@ extension SimCtl {
         case iOS
         case tvOS
         case watchOS
+        case visionOS
     }
 
     enum DeviceFamily: CaseIterable {
@@ -21,6 +22,7 @@ extension SimCtl {
         // swiftlint:disable:next identifier_name
         case tv
         case watch
+        case visionPro
 
         var displayName: String {
             switch self {
@@ -28,6 +30,7 @@ extension SimCtl {
             case .iPad: return "iPad"
             case .watch: return "Apple Watch"
             case .tv: return "Apple TV"
+            case .visionPro: return "Apple Vision Pro"
             }
         }
     }
@@ -56,6 +59,7 @@ extension SimCtl {
             if type.conformsTo(.tv) { return .tv }
             if type.conformsTo(.watch) { return .watch }
             if type.conformsTo(.pad) { return .iPad }
+            if type.conformsTo(.vision) { return .visionPro }
             return .iPhone
         }
     }
@@ -96,6 +100,8 @@ extension SimCtl {
                 return [.watch]
             } else if name.hasPrefix("tvOS") {
                 return [.tv]
+            } else if name.hasPrefix("visionOS") {
+                return [.visionPro]
             } else {
                 return []
             }
